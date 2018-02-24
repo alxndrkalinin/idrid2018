@@ -13,14 +13,23 @@ class AbstractDataset:
     def pad_image(self, image):
         channels = image.shape[2] if len(image.shape) > 2 else None
         if image.shape[:2] != (self.rows, self.cols):
-            empty_x = np.zeros((self.rows, self.cols, channels), dtype=image.dtype) if channels else np.zeros((self.rows, self.cols), dtype=image.dtype)
-            empty_x[0:image.shape[0],0:image.shape[1],...] = image
+            if channels:
+                empty_x = np.zeros((self.rows, self.cols, channels), dtype=image.dtype)
+                print('Empty: ', empty_x.shape)
+                print('Img: ', image.shape)
+                empty_x[0:image.shape[0],0:image.shape[1],0:image.shape[2]] = image
+            else:
+                empty_x = np.zeros((self.rows, self.cols), dtype=image.dtype)
+#                empty_x = image
+                print('Empty: ', empty_x.shape)
+                print('Img: ', image.shape)
+                empty_x[0:image.shape[0],0:image.shape[1]] = image
             image = empty_x
         return image
 
 class ReadingDataset(AbstractDataset):
     def __init__(self, root, rows, cols, channels=3):
-        super(ReadingDataset, self).__init__(rows, cols, channels)
+        AbstractDataset.__init__(self, rows, cols, channels)
         self.root = root
         self.im_names = []
         self.with_alpha = None

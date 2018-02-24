@@ -87,10 +87,10 @@ class SequentialDataset(Dataset):
                 alpha_generator = self.cropper.sequentialCrops(self.dataset['alphas'][im_idx])
                 for idx, alpha in enumerate(alpha_generator):
                     if np.mean(alpha) > 5:
-                        self.good_tiles.append((im_idx + tuple(positions[idx])))
+                        self.good_tiles.append((tuple([im_idx]) + tuple(positions[idx])))
             else:
                 for pos in positions:
-                    self.good_tiles.append((im_idx + tuple(pos)))
+                    self.good_tiles.append((tuple([im_idx]) + tuple(pos)))
 
     def __getitem__(self, idx):
         if idx >= self.__len__():

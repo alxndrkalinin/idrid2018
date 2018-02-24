@@ -229,7 +229,7 @@ def train_config(config_path):
 
     root = config.dataset_path
     image_folder_name = 'train_hq'
-    ds = H5LikeFileInterface(CarvanaDataset(root,
+    ds = H5LikeFileInterface(IdrisDataset(root,
                                             config.img_rows, config.img_cols,
                                             image_folder_name=image_folder_name,
                                             apply_clahe=config.use_clahe))

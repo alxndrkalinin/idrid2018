@@ -14,7 +14,7 @@ nonlinearity = nn.ReLU
 
 class DecoderBlock(nn.Module):
     def __init__(self, in_channels, n_filters):
-        super().__init__()
+        super(DecoderBlock, self).__init__()
 
         # B, C, H, W -> B, C/4, H, W
         self.conv1 = nn.Conv2d(in_channels, in_channels // 4, 1)
@@ -46,7 +46,7 @@ class DecoderBlock(nn.Module):
 
 class LinkNet34(nn.Module):
     def __init__(self, num_classes, num_channels=3):
-        super().__init__()
+        super(LinkNet34, self).__init__()
         assert num_channels == 3, "num channels not used now. to use changle first conv layer to support num channels other then 3"
         filters = [64, 128, 256, 512]
         resnet = models.resnet34(pretrained=True)
